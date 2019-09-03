@@ -1,0 +1,30 @@
+{
+  "name": "t-mo",
+  "version": "0.0.1",
+  "description": "THM-MI Orga Bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheTimmaeh/T-MO.git"
+  },
+  "keywords": [
+    "Discord",
+    "Bot",
+    "THM",
+    "NodeJS"
+  ],
+  "author": "Tim Elbert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheTimmaeh/T-MO/issues"
+  },
+  "homepage": "https://github.com/TheTimmaeh/T-MO#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "lodash": "^4.17.11",
+    "lowdb": "^1.0.0"
+  }
+}
