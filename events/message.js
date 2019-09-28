@@ -21,6 +21,9 @@ module.exports = async function(client, message){
     // ...message type
     if(_.intersection(command.accessibility, ['dm', 'text']).length && !command.accessibility.includes(message.channel.type)) return
 
+    // ...channelID
+    // to be continued
+
     // ...userID
     let granted
     let grantedusers = command.accessibility.filter(a => a.startsWith('u'))

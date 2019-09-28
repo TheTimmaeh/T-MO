@@ -9,7 +9,7 @@ const client = new Discord.Client()
 const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync('db.json')
 client.db = require('lowdb')(adapter)
-client.db.defaults({reactions: {}}).write()
+client.db.defaults({reactions: {}, invertedreactions: {}}).write()
 
 // Config
 client.config = require('./config')

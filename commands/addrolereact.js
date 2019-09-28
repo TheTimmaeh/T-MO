@@ -10,7 +10,7 @@ module.exports = {
   description: 'Add a message/reaction to grant roles',
 
   // Usage example
-  usage: '!addrolereact {"message": "<Message ID>", "reaction": "<Emoji>", "role": "<Role ID>"}',
+  usage: '!addrolereact {"message": "<Message ID>", "emoji": "<Emoji>", "role": "<Role ID>"}',
 
   // Accessability
   // Set of 'text' or 'dm', roleIDs and userIDs, any if empty/omitted
@@ -78,19 +78,27 @@ module.exports = {
         continue
       }
 
+      let emoji = client.emojis.find(e => e.name === o.emoji || e.id === o.emoji || e.toString() === o.emoji)
+      if(!emoji){
+        message.channel.send('Emoji not found.')
+        continue
+      }
+
+      o.inverted = o.inverted || false
+
       // Save Role React in DB
       try {
-        client.db.get('reactions').set(`${o.message}.${o.emoji}`, o.role.id).write()
+        client.db.get((!o.inverted ? 'reactions' : 'invertedreactions')).set(`${o.message}.${emoji.name}`, o.role.id).write()
       } catch(e){
         console.error(e)
         continue
       }
 
       // React with emoji to message
-      await targetmessage.react(o.emoji).then(() => {
+      await targetmessage.react(emoji).then(() => {
 
         // Notify user
-        message.channel.send(`Role React added for role ${(message.channel.type == 'text' ? `<@${o.role.id}>` : client.markdown.code + o.role.name + client.markdown.code)}, emoji ${o.emoji} & message <${o.link}>`)
+        message.channel.send(`Role React added for role ${(message.channel.type == 'text' ? `<@${o.role.id}>` : client.markdown.code + o.role.name + client.markdown.code)}, emoji ${emoji.toString()}, message <${o.link}> & inverted ${o.inverted}`)
       })
 
       await sleep(500)
